@@ -1,0 +1,62 @@
+16,17c16,17
+<     source = models.ForeignKey('Location')
+<     dest = models.ForeignKey('Location')
+---
+>     source = models.ForeignKey('Locations')
+>     dest = models.ForeignKey('Locations')
+35c35
+< class Guide(models.Model):
+---
+> class Guides(models.Model):
+38c38
+<     location = models.ForeignKey('Location')
+---
+>     location = models.ForeignKey('Locations')
+41c41
+<     image = models.ForeignKey('Image')
+---
+>     image = models.ForeignKey('Images')
+45c45
+<         db_table = 'guide'
+---
+>         db_table = 'guides'
+48c48
+< class Hotel(models.Model):
+---
+> class Hotels(models.Model):
+50c50
+<     location = models.ForeignKey('Location')
+---
+>     location = models.ForeignKey('Locations')
+58c58
+<         db_table = 'hotel'
+---
+>         db_table = 'hotels'
+61c61
+< class Image(models.Model):
+---
+> class Images(models.Model):
+67c67
+<         db_table = 'image'
+---
+>         db_table = 'images'
+70c70
+< class Location(models.Model):
+---
+> class Locations(models.Model):
+79c79
+<         db_table = 'location'
+---
+>         db_table = 'locations'
+83,84c83,84
+<     guide = models.ForeignKey(Guide)
+<     location = models.ForeignKey(Location)
+---
+>     guide = models.ForeignKey(Guides)
+>     location = models.ForeignKey(Locations)
+107,108c107,108
+<     src = models.ForeignKey(Location)
+<     dest = models.ForeignKey(Location)
+---
+>     src = models.ForeignKey(Locations)
+>     dest = models.ForeignKey(Locations)

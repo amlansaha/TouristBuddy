@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"> 
+<html lang="en"> 
+<head> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+        <title>get_select_value</title> 
+</head> 
+<body> 
+
+<form action="." method="post"> 
+<p> 
+<select name="sample"> 
+        <option value="A">A</option> 
+        <option value="B">B</option> 
+        <option value="C">C</option> 
+        <option value="D">D</option> 
+        <option value="E">E</option> 
+</select> 
+<input type="submit" value="Submit" /> 
+</p> 
+</form> 
+{% if selected_value %} 
+<p>You picked {{selected_value}}.</p> 
+{% else %} 
+<p>Choose the value you want and click <em>Submit</em>.</p> 
+{% endif %} 
+</body> 
+</html>

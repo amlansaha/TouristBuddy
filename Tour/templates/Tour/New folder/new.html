@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login</title>
+
+    <link href="assets1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets1/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="assets1/css/animate.css" rel="stylesheet">
+    <link href="assets1/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="pace-done">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+
+               </br>
+               </br>
+               </br>
+               </br>
+               
+               </br>
+               </br>
+
+
+            </div>
+            <form class="m-t" method="post" 
+                action="<?php echo base_url()?>index.php?login/do_login">
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="email" required="" name="email"  id="email" autofocus>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="password" required="" name="password" id="password">
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+            </form>
+            <a class="btn btn-sm btn-success btn-block" 
+                href="<?php echo base_url();?>index.php?login/register">
+                    Register as Client
+            </a>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="assets1/js/jquery-2.1.1.js"></script>
+    <script src="assets1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+
+<!-- Localized -->

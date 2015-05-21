@@ -1,0 +1,255 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Travel</title>
+<link href="{% static 'assets/css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
+<!-- jQuery (Bootstrap's JavaScript plugins) -->
+<script src="assets/js/jquery.min.js"></script>
+<!-- Custom Theme files -->
+<link href="{% static 'assets/css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Travel" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--webfont-->
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,800,300,100,500,700,600,900' rel='stylesheet' type='text/css'>
+<!--animated-css-->
+<link href="{% static 'assets/css/animate.css' %}" rel="stylesheet" type="text/css" media="all">
+<script src="{% static 'assets/js/wow.min.js' %}"></script>
+<script>
+ new WOW().init();
+</script>
+<!--/animated-css-->
+<!--script-->
+<script type="text/javascript" src="{% static 'assets/js/move-top.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/easing.js' %}"></script>
+<!--/script-->
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+				});
+			});
+</script>
+</head>
+<body>
+
+	<div class="banner-bg">
+		<video autoplay="autoplay" muted="muted" poster="wall_icons/my.jpg" width="100%"  loop>
+			<source src="{% static 'assets/srix.mp4' %}" type="video/mp4" type="video/mp4">
+		</video>
+		<div class="banner">
+		 <div class="header">	 
+			 <div class="logo wow fadeInLeft" data-wow-delay="0.5s">
+			 <a href="index.html"><img src="{% static 'assets/images/logo2.png' %}" alt=""/></a>
+			 </div>	
+			 <div class="top-menu">
+				<span class="menu"></span> 
+				<ul class="cl-effect-1">
+					 <li><a class="scroll" href="#home">HOME</a></li>
+					 <li><a class="scroll" href="#brief">BRIEF</a></li>
+					 <li><a class="scroll" href="#features">FEATURES</a></li>
+					 <li><a class="scroll" href="#screenshots">TOURS</a></li>
+					 <li><a class="scroll" href="#testimonial">TESTIMONIAL</a></li>
+					 <li><a class="scroll" href="#contact">CONTACT</a></li>
+					 <li><a class="scroll" href="#contact">LOGOUT</a></li>
+				 </ul>
+			 </div>
+			 <div class="clearfix"></div>
+			 <!-- script-for-menu -->
+		 <script>
+			$( "span.menu" ).click(function() {
+			$( "ul.cl-effect-1" ).slideToggle( 300, function() {
+			// Animation complete.
+			});
+			});
+		</script>
+		 <!-- script-for-menu -->			 
+		 </div>
+		 <div class="banner-text wow fadeInUp" data-wow-delay="0.5s">
+			 <h1>Plan Your Perfect Trip</h1>
+		 </div>
+		 <div class="booking-form">
+					<!---strat-date-piker---->
+					<link rel="stylesheet" href="{% static 'assets/css/jquery-ui.css' %}" />
+					<script src="{% static 'assets/js/jquery-ui.js' %}"></script>
+							  <script>
+									  $(function() {
+										$( "#datepicker,#datepicker1" ).datepicker();
+									  });
+							  </script>
+					<!---/End-date-piker---->
+					<link type="text/css" rel="stylesheet" href="{% static 'assets/css/JFGrid.css' %}" />
+					<link type="text/css" rel="stylesheet" href="{% static 'assets/css/JFFormStyle-1.css' %}" />
+					<script type="text/javascript" src="{% static 'assets/js/JFCore.js' %}"></script>
+					<script type="text/javascript" src="{% static 'assets/js/JFForms.js' %}"></script>
+					<!-- Set here the key for your domain in order to hide the watermark on the web server -->
+					<script type="text/javascript">
+						(function() {
+							JC.init({
+								domainKey: ''
+							});
+						})();
+					</script>
+					<div class="online_reservation">
+							<div class="b_room">
+								<div class="booking_room">
+									<div class="reservation">
+										<ul>		
+											 <li class="span1_of_1">
+												 <h5>AVILABLE LOCATION</h5>
+												 
+												 <div class="section_room">
+													  <select id="country" onchange="change_country(this.value)" class="frm-field required">
+															<option value="null">XYZ</option>
+															<option value="null">STUX</option>         
+															<option value="AX">ASSDSDS</option>
+															<option value="AX">SASASAS</option>
+															<option value="AX">SASASAS</option>
+															<option value="AX">SASASAS</option>
+															<option value="null">SSASASA</option>
+															<option value="null">SASASASAS</option>         
+															<option value="AX">CSASASASA</option>
+															<option value="AX">SASASASASA</option>
+															<option value="AX">BSASASASA</option>
+															<option value="AX">SASASASASA</option>
+													  </select>
+												 </div>	
+											 </li>
+											   <li class="span1_of_1">
+												 <h5>NEAR BY HOTEL</h5>
+												 
+												 <div class="section_room">
+													  <select id="country" onchange="change_country(this.value)" class="frm-field required">
+															<option value="null">DSDSDS</option>
+															<option value="null">DSDSDSDS</option>         
+															<option value="AX">DSDSDS</option>
+															<option value="AX">SYLHETFD HOTEL</option>
+															<option value="AX">RAJSDFDF</option>
+															<option value="AX">BARISALDFD</option>
+															<option value="null">JOSHOREDD</option>
+															<option value="null">PONCOGORD</option>         
+															<option value="AX">COX-S-BAZADR</option>
+															<option value="AX">RANGAMADDDTI</option>
+															<option value="AX">BANDORBODDN</option>
+															<option value="AX">COMILLDDA</option>
+													  </select>
+												 </div>	
+											 </li>
+
+											  <li class="span1_of_1">
+												 <h5>RESTURENT</h5>
+												 
+												 <div class="section_room">
+													  <select id="country" onchange="change_country(this.value)" class="frm-field required">
+															<option value="null">DSDSDS</option>
+															<option value="null">DSDSDSDS</option>         
+															<option value="AX">DSDSDS</option>
+															<option value="AX">SYLHETFD HOTEL</option>
+															<option value="AX">RAJSDFDF</option>
+															<option value="AX">BARISALDFD</option>
+															<option value="null">JOSHOREDD</option>
+															<option value="null">PONCOGORD</option>         
+															<option value="AX">COX-S-BAZADR</option>
+															<option value="AX">RANGAMADDDTI</option>
+															<option value="AX">BANDORBODDN</option>
+															<option value="AX">COMILLDDA</option>
+													  </select>
+												 </div>	
+											 </li>
+											
+											
+											 <li class="span1_of_1">
+												 <h5>SHOPPING CENTER</h5>
+												 
+												 <div class="section_room">
+													  <select id="country" onchange="change_country(this.value)" class="frm-field required">
+															<option value="null">TRAICXCXN</option>
+															<option value="null">BUCXCXS</option>         
+															<option value="AX">ACXCXCIR</option>
+															<option value="AX">PRCXCXIVATE</option>
+													  </select>
+												 </div>	
+											 </li>
+
+											  <li class="span1_of_1">
+												 <h5>ONLINE TICKET BOOKING</h5>
+												 
+												 <div class="section_room">
+													  <select id="country" onchange="change_country(this.value)" class="frm-field required">
+															<option value="null">TRAICXCXN</option>
+															<option value="null">BUCXCXS</option>         
+															<option value="AX">ACXCXCIR</option>
+															<option value="AX">PRCXCXIVATE</option>
+													  </select>
+												 </div>	
+											 </li>
+											 <li class="span1_of_3">
+													<div class="date_btn">
+														<form>
+															<a href=""><input type="submit" value="LETS GO" /></a>
+														</form>
+													</div>
+											 </li>
+											 
+
+											 <div class="clearfix"></div>
+										</ul>
+									 </div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+					</div>
+						
+			</div>
+			 <div class="clearfix"></div> 
+			 <div class="online-form">
+				<a class="play-icon popup-with-zoom-anim" href="#small-dialog2">LETS GO</a>
+			</div>
+			
+	</div>
+
+
+<!---->
+
+<!---->
+<div class="footer">
+	 <div class="container">
+		 <div class="ftr-logo">
+			 <a class="wow bounceIn" data-wow-delay="0.5s" href="index.html"><img src="assets/images/logo2.png" alt=""/></a>
+		 </div>
+		 <div class="copy-right wow bounceInUp" data-wow-delay="0.5s">
+			 <p>Shariful Hasnine Sabuj</p>
+			 <p>Design by <a href="http://w3layouts.com/">Shariful Hasnine Sabuj</a></p>
+		 </div>
+
+	 </div>
+</div>
+<!---->
+<script type="text/javascript">
+		$(document).ready(function() {
+				/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+				*/
+		$().UItoTop({ easingType: 'easeOutQuart' });
+});
+</script>
+<a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+<!----> 
+ </body>
+ </html>

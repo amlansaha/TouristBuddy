@@ -1,0 +1,151 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/style.css' %}" />
+<!DOCTYPE html>
+<html>
+<head>
+<title>Travel</title>
+
+<link href="{% static 'assets/css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
+<!-- jQuery (Bootstrap's JavaScript plugins) -->
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<!-- Custom Theme files -->
+<link href="{% static 'assets/css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Travel" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--webfont-->
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,800,300,100,500,700,600,900' rel='stylesheet' type='text/css'>
+<!--animated-css-->
+<link href="{% static 'assets/css/animate.css' %}" rel="stylesheet" type="text/css" media="all">
+<script src="{% static 'assets/js/wow.min.js' %}"></script>
+<script>
+ new WOW().init();
+</script>
+<!--/animated-css-->
+<!--script-->
+<script type="text/javascript" src="{% static 'assets/js/move-top.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/easing.js' %}"></script>
+<!--/script-->
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+				});
+			});
+</script>
+</head>
+<body>
+
+	<div class="banner-bg">
+		<video autoplay="autoplay" muted="muted" poster="wall_icons/my.jpg" width="100%"  loop>
+			<source src="{% static 'assets/3.mp4' %}" type="video/mp4" type="video/mp4">
+		</video>
+		<div class="banner">
+		 <div class="header">	 
+			 <div class="logo wow fadeInLeft" data-wow-delay="0.5s">
+			 <a href="index.html"><img src="{% static 'assets/images/TouristBuddy_logo.png' %}" alt=""/></a>
+			 </div>	
+			 <div class="top-menu">
+				<span class="menu"></span> 
+				<ul class="cl-effect-1">
+					 <li><a class="scroll" href="#home">HOME</a></li>
+					 <li><a class="scroll" href="#contact">LOGIN</a></li>
+					 <li><a class="scroll" href="#contact">REGISTRATION</a></li>
+				 </ul>
+			 </div>
+			 <div class="clearfix"></div>
+			 <!-- script-for-menu -->
+		 <script>
+			$( "span.menu" ).click(function() {
+			$( "ul.cl-effect-1" ).slideToggle( 300, function() {
+			// Animation complete.
+			});
+			});
+		</script>
+		 <!-- script-for-menu -->			 
+		 </div>
+		 <div class="banner-text wow fadeInUp" data-wow-delay="0.5s">
+		 	  <h1>Visit <span>{{dest}}</span></h1>
+		 </div>
+		 
+		 <div class="booking-form">
+					<!---strat-date-piker---->
+					<link rel="stylesheet" href="{% static 'assets/css/jquery-ui.css' %}" />
+					<script src="{% static 'assets/js/jquery-ui.js' %}"></script>
+							  <script>
+									  $(function() {
+										$( "#datepicker,#datepicker1" ).datepicker();
+									  });
+							  </script>
+					<!---/End-date-piker---->
+					<link type="text/css" rel="stylesheet" href="{% static 'assets/css/JFGrid.css' %}" />
+					<link type="text/css" rel="stylesheet" href="{% static 'assets/css/JFFormStyle-1.css' %}" />
+					<script type="text/javascript" src="{% static 'assets/js/JFCore.js' %}"></script>
+					<script type="text/javascript" src="{% static 'assets/js/JFForms.js' %}"></script>
+					<!-- Set here the key for your domain in order to hide the watermark on the web server -->
+					<script type="text/javascript">
+						(function() {
+							JC.init({
+								domainKey: ''
+							});
+						})();
+					</script>
+					<div class="online_reservation">
+							<div class="b_room">
+								<div class="booking_room">
+									<div class="reservation">
+									 
+										<ul>	
+											<li class="span1_of_1">
+												 <a href="{{source}}_{{dest}}_spot"><span><em><h5>Spots</h5></em></span></a>
+											</li>
+											<li class="span1_of_1">
+												 <a href="{{source}}_{{dest}}_hotel"><span><em><h5>Hotel</h5></em></span></a>
+											</li> 
+											<li class="span1_of_1">
+												 <a href="{{source}}_{{dest}}_restaurant"><span><em><h5>Restaurant</h5></em></span></a>
+											</li>
+											<li class="span1_of_1">
+												 <a href="{{source}}_{{dest}}_transport"><span><em><h5>Transport</h5></em></span></a>
+											</li> 
+											<li class="span1_of_1">
+												 <a href="{{source}}_{{dest}}_guide"><span><em><h5>Guide</h5></em></span></a>
+											</li> 
+											<li class="span1_of_1">
+												 <a href="{{source}}_{{dest}}_gallery"><span><em><h5>Gallery</h5></em></span></a>
+											</li> 
+											<li class="span1_of_1">
+												 <a href="{{source}}_{{dest}}_review"><span><em><h5>Review</h5></em></span></a>
+											</li> 
+											<li class="span1_of_1">
+												 <a href="{{source}}_{{dest}}_nearby"><span><em><h5>Visit Also</h5></em></span></a>
+											</li>
+											 <div class="clearfix"></div>
+										</ul>
+										
+									 </div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+					</div>
+						
+			</div>
+			 
+
+			
+	</div>
+
+
+
+ </body>
+ </html>

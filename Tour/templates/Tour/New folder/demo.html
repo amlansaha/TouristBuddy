@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"> 
+<html lang="en"> 
+<head> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+        <title>get_select_value</title> 
+</head> 
+<body> 
+<form action="." method="post">		
+											{% csrf_token %}
+<ul>	
+											
+											 <li class="span1_of_1">
+												 <h5>FORM</h5>
+												 
+												 <div class="section_room">
+													  <select name="sample" id="country" onchange="change_country(this.value)" class="frm-field required">
+															{% for district in district_list %}
+        													   <option value={{district.dist_name}}>{{district.dist_name}}</option>
+															{% endfor %}
+													  </select>
+												 </div>	
+											 </li>
+											   <li class="span1_of_1">
+												 <h5>TO</h5>
+												 
+												 <div class="section_room">
+												 
+													  <select name="sample1" id="country" onchange="change_country(this.value)" class="frm-field required">
+															{% for district in district_list %}
+        													   <option value={{district.dist_name}}>{{district.dist_name}}</option>
+															{% endfor %}
+													  </select>
+												
+												 </div>	
+											 </li>
+											 
+											 
+											 
+											 <li class="span1_of_3">
+													<div class="date_btn">
+														
+															<input type="submit" value="LETS GO" />
+														
+													</div>
+											 </li>
+											 
+											 <div class="clearfix"></div>
+										</ul> 
+										</form>
+										
+											  {% if selected_value %} 
+											 <p>You picked {{selected_value}}.</p> 
+											 {% else %} 
+											 <p>Choose the value you want and click <em>Submit</em>.</p> 
+											 {% endif %}
+											 {% if selected_value1 %} 
+											 <p>You picked {{selected_value1}}.</p> 
+											 {% else %} 
+											 <p>Choose the value you want and click <em>Submit</em>.</p> 
+											 {% endif %}
+											 <div class="date_btn">
+															<form action="/www.tourismbd.com/{{selected_value}}{{selected_value1}}/details/" method="post">
+															<input type="submit" value="LETS GO" />
+															</form>
+											</div>
+ 
+</body> 
+</html>
