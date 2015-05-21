@@ -66,6 +66,35 @@ class Images(models.Model):
         managed = False
         db_table = 'images'
 
+class ImagesGuide(models.Model):
+    id = models.CharField(primary_key=True, max_length=20)
+    guide = models.ForeignKey(Guides)
+    image = models.ForeignKey(Images)
+
+    class Meta:
+        managed = False
+        db_table = 'images_guide'
+
+
+class ImagesLocation(models.Model):
+    id = models.CharField(primary_key=True, max_length=20)
+    image = models.ForeignKey(Images)
+    location = models.ForeignKey('Locations')
+
+    class Meta:
+        managed = False
+        db_table = 'images_location'
+
+
+class ImagesUser(models.Model):
+    id = models.CharField(primary_key=True, max_length=20)
+    image = models.ForeignKey(Images)
+    user = models.ForeignKey('Users')
+
+    class Meta:
+        managed = False
+        db_table = 'images_user'
+
 
 class Locations(models.Model):
     location_id = models.CharField(primary_key=True, max_length=20)
