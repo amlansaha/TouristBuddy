@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'TouristBuddy.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'orcl',
-        'USER': 'touristbuddy',
-        'PASSWORD': 'touristbuddy',
+        'NAME': 'xe',
+        'USER': 'tourism',
+        'PASSWORD': 'tourism',
         'HOST':'',
         'PORT':'',
     }

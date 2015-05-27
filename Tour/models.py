@@ -18,7 +18,7 @@ class Adjacent(models.Model):
     distance_in_km = models.FloatField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'adjacent'
         unique_together = (('source', 'dest'),)
 
@@ -28,7 +28,7 @@ class Districts(models.Model):
     dist_name = models.CharField(max_length=20)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'districts'
 
 
@@ -41,7 +41,7 @@ class Guides(models.Model):
     image = models.ForeignKey('Images')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'guides'
 
 
@@ -54,16 +54,27 @@ class Hotels(models.Model):
     hotel_email = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'hotels'
 
+class Restaurants(models.Model):
+    restaurant_id = models.CharField(primary_key=True, max_length=20)
+    location = models.ForeignKey('Locations')
+    restaurant_name = models.CharField(max_length=50)
+    restaurant_website = models.CharField(max_length=50, blank=True, null=True)
+    restaurant_phone = models.CharField(max_length=20, blank=True, null=True)
+    restaurant_email = models.CharField(max_length=20, blank=True, null=True)
 
+    class Meta:
+        managed = True
+        db_table = 'restaurants'
+        
 class Images(models.Model):
     image_id = models.CharField(primary_key=True, max_length=20)
     image_dir = models.CharField(max_length=40)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'images'
 
 class ImagesGuide(models.Model):
@@ -72,7 +83,7 @@ class ImagesGuide(models.Model):
     image = models.ForeignKey(Images)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'images_guide'
 
 
@@ -82,7 +93,7 @@ class ImagesLocation(models.Model):
     location = models.ForeignKey('Locations')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'images_location'
 
 
@@ -92,7 +103,7 @@ class ImagesUser(models.Model):
     user = models.ForeignKey('Users')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'images_user'
 
 
@@ -104,7 +115,7 @@ class Locations(models.Model):
     map = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'locations'
 
 
@@ -114,7 +125,7 @@ class Manage(models.Model):
     charge = models.FloatField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'manage'
         unique_together = (('location', 'guide'),)
 
@@ -126,7 +137,7 @@ class Review(models.Model):
     rating = models.FloatField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'review'
         unique_together = (('user_id', 'location_id'),)
 
@@ -143,7 +154,7 @@ class Travel(models.Model):
     contact_phone = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'travel'
 
 
@@ -154,5 +165,14 @@ class Users(models.Model):
     user_password = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'users'
+
+class Spots(models.Model):
+    spot_id = models.CharField(primary_key=True, max_length=20)
+    spot_name = models.CharField(max_length=50)
+    location = models.ForeignKey(Locations, related_name='%(app_label)s_%(class)s_location')
+
+    class Meta:
+        managed = True
+        db_table = 'spots'        

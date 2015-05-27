@@ -75,7 +75,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		 <!-- script-for-menu -->			 
 		 </div>
 		 <div class="banner-text wow fadeInUp" data-wow-delay="0.5s">
-		 	  <h1>Visit <span>{{selected_value1}}</span></h1>
+		 	  <h1>Visit <span>{{dest}}</span></h1>
 		 </div>
 		 
 		 <div class="booking-form">
@@ -106,9 +106,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<div class="reservation">
 									 
 										<ul>	
-											{% for location in location_list %}
+											{% for spot in spot_list %}
 											<li class="span1_of_1">
-												 <a href="{{selected_value2}}_{{location.location_name}}"><span><em><h5>{{ location.location_name }}</h5></em></span></a>
+												 <span><em><h5>{{ spot.spot_name }}</h5></em></span>
 											</li>	 
 											{% endfor %}	 
 											 
