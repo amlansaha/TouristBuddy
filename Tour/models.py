@@ -118,7 +118,16 @@ class Locations(models.Model):
 		managed = True
 		db_table = 'locations'
 
+class Users(models.Model):
+	user_id = models.CharField(primary_key=True, max_length=20)
+	user_email = models.CharField(max_length=50)
+	user_name = models.CharField(max_length=50)
+	user_password = models.CharField(max_length=30)
 
+	class Meta:
+		managed = True
+		db_table = 'users'
+		
 class Manage(models.Model):
 	guide = models.ForeignKey(Guides)
 	location = models.ForeignKey(Locations)
@@ -129,17 +138,27 @@ class Manage(models.Model):
 		db_table = 'manage'
 		unique_together = (('location', 'guide'),)
 
-
 class Review(models.Model):
-	user_id = models.CharField(max_length=20)
-	location_id = models.CharField(max_length=20)
-	review = models.CharField(max_length=300, blank=True, null=True)
+	user = models.ForeignKey(Users)
+	location = models.ForeignKey(Locations)
+	review = models.CharField(max_length=300, blank=True, null=False)
 	rating = models.FloatField(blank=True, null=True)
-
+	
 	class Meta:
 		managed = True
 		db_table = 'review'
-		unique_together = (('user_id', 'location_id'),)
+		unique_together= ("user", "location")
+		
+#class Review(models.Model):
+#	user = models.ForeignKey(Users)
+#	location = models.ForeignKey(Locations)
+#	review = models.CharField(max_length=300, blank=True, null=True)
+#	rating = models.FloatField(blank=True, null=True)
+
+#	class Meta:
+#		managed = True
+#		db_table = 'review'
+#		unique_together = (('user_id', 'location_id'),)
 
 class Transports(models.Model):
 	transport_id = models.CharField(max_length=100, null=False, primary_key=True)
@@ -152,20 +171,7 @@ class Transports(models.Model):
 	
 	class Meta:
 		db_table = 'transports'
-#class Travel(models.Model):
-#	travel_id = models.CharField(primary_key=True, max_length=20)
-#	src = models.ForeignKey(Locations, related_name='%(app_label)s_%(class)s_src')
-#	dest = models.ForeignKey(Locations, related_name='%(app_label)s_%(class)s_dest')
-#	transport_type = models.CharField(max_length=20)
-#	transport_name = models.CharField(max_length=40, blank=True, null=True)
-#	contact_email = models.CharField(max_length=50, blank=True, null=True)
-#	contact_website = models.CharField(max_length=30, blank=True, null=True)
 
-#	contact_phone = models.CharField(max_length=20, blank=True, null=True)
-
-#	class Meta:
-#		managed = True
-#		db_table = 'travel'
 
 class Travel(models.Model):
 	source_id1 = models.ForeignKey(Locations, related_name='source1')
@@ -176,15 +182,6 @@ class Travel(models.Model):
 		db_table = 'travel'
 		unique_together= ("source_id1", "destination_id1","transport")
 
-class Users(models.Model):
-	user_id = models.CharField(primary_key=True, max_length=20)
-	user_email = models.CharField(max_length=50)
-	user_name = models.CharField(max_length=50)
-	user_password = models.CharField(max_length=30)
-
-	class Meta:
-		managed = True
-		db_table = 'users'
 
 class Spots(models.Model):
 	spot_id = models.CharField(primary_key=True, max_length=20)
@@ -194,3 +191,4 @@ class Spots(models.Model):
 	class Meta:
 		managed = True
 		db_table = 'spots'		
+

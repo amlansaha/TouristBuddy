@@ -1,14 +1,10 @@
-CREATE user TouristBuddy identified by TouristBuddy;
+--drop user tourism cascade;
+CREATE user tourism identified by tourism;
 
+GRANT CONNECT TO Tourism;
 
-GRANT CONNECT TO TouristBuddy;
+GRANT EXECUTE on schema.procedure TO Tourism;
 
-
-GRANT EXECUTE on schema.procedure TO TouristBuddy;
-
-
-GRANT CONNECT,RESOURCE,DBA TO TouristBuddy;
-
-GRANT CREATE SESSION GRANT ANY PRIVILEGE TO TouristBuddy;
-
-GRANT UNLIMITED TABLESPACE TO TouristBuddy;
+GRANT CONNECT,RESOURCE,DBA TO Tourism;
+GRANT CREATE SESSION GRANT ANY PRIVILEGE TO Tourism;
+GRANT UNLIMITED TABLESPACE TO Tourism;

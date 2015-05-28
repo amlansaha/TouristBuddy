@@ -12,9 +12,20 @@ flag=0
 
 def retrieve(request, source, dest):
     template = loader.get_template('Tour/index6.html')
+    src = Locations.objects.filter(pk=source)
+    source_name=""
+    if(len(src) > 0):
+    	source_name=src[0].location_name
+    dst = Locations.objects.filter(pk=dest)
+    dest_name = ""
+    if(len(dst) > 0):
+    	dest_name=dst[0].location_name
+    print(source)
     context = RequestContext(request, {
         'source': source,
+        'source_name': source_name,
         'dest': dest,
+        'dest_name': dest_name,
     })
     return HttpResponse(template.render(context))
 
@@ -31,7 +42,7 @@ def retrieve_details(request, source, dest, option):
         return HttpResponse(template.render(context))
         
     elif option== "restaurant":
-        restaurant_list = Restaurants.objects.raw('SELECT * FROM Tour_RESTAURANTS WHERE location_id=%s',[dest])
+        restaurant_list = Restaurants.objects.raw('SELECT * FROM RESTAURANTS WHERE location_id=%s',[dest])
         template = loader.get_template('Tour/index_restaurant.html')
         context = RequestContext(request, {
             'source': source,
@@ -42,7 +53,7 @@ def retrieve_details(request, source, dest, option):
         return HttpResponse(template.render(context))
         
     elif option== "transport":
-        transport_list = travel.objects.raw('SELECT * FROM TRANSPORTS T1 JOIN (SELECT * FROM TRAVEL WHERE (DESTINATION_ID1_ID= %s) AND (SOURCE_ID1_ID= %s)) T2 ON (T1.TRANSPORT_ID=T2.TRANSPORT_ID)',[dest,source])
+        transport_list = Travel.objects.raw('SELECT * FROM TRANSPORTS T1 JOIN (SELECT * FROM TRAVEL WHERE (DESTINATION_ID1_ID= %s) AND (SOURCE_ID1_ID= %s)) T2 ON (T1.TRANSPORT_ID=T2.TRANSPORT_ID)',[dest,source])
         template = loader.get_template('Tour/index_transport.html')
         context = RequestContext(request, {
             'source': source,
@@ -53,7 +64,7 @@ def retrieve_details(request, source, dest, option):
         return HttpResponse(template.render(context))
         
     elif option== "guide":
-        guide_list = manage.objects.raw('SELECT * FROM IMAGES IM1 JOIN IMAGES_GUIDE IM2 ON(IM1.IMAGE_ID=IM2.IMAGE_ID) JOIN GUIDES GU1 ON(GU1.GUIDE_ID=IM2.GUIDE_ID) JOIN MANAGE MN1 ON(MN1.GUIDE_ID=GU1.GUIDE_ID) WHERE MN1.LOCATION_ID=%s',[dest])
+        guide_list = Manage.objects.raw('SELECT * FROM IMAGES IM1 JOIN IMAGES_GUIDE IM2 ON(IM1.IMAGE_ID=IM2.IMAGE_ID) JOIN GUIDES GU1 ON(GU1.GUIDE_ID=IM2.GUIDE_ID) JOIN MANAGE MN1 ON(MN1.GUIDE_ID=GU1.GUIDE_ID) WHERE MN1.LOCATION_ID=%s',[dest])
         template = loader.get_template('Tour/index_guide.html')
         context = RequestContext(request, {
             'source': source,
@@ -64,7 +75,7 @@ def retrieve_details(request, source, dest, option):
         return HttpResponse(template.render(context))
         
     elif option== "gallery":
-        image_list = images.objects.raw('SELECT * FROM IMAGES M1 JOIN IMAGES_LOCATION M2 ON (M1.IMAGE_ID=M2.IMAGE_ID) WHERE M2.LOCATION_ID=%s',[dest])
+        image_list = Images.objects.raw('SELECT * FROM IMAGES M1 JOIN IMAGES_LOCATION M2 ON (M1.IMAGE_ID=M2.IMAGE_ID) WHERE M2.LOCATION_ID=%s',[dest])
         template = loader.get_template('Tour/index_gallery.html')
         context = RequestContext(request, {
             'source': source,
@@ -96,16 +107,6 @@ def retrieve_details(request, source, dest, option):
     		'spot_list': spot_list,
     	})
     	return HttpResponse(template.render(context))
-#	elif option=="spots":
-#        spot_list = Spots.objects.raw('SELECT * FROM SPOTS WHERE location_id=%s',[dest])
-#        template = loader.get_template('Tour/index_spot.html')
-#        context = RequestContext(request, {
-#            'source': source,
-#            'dest': dest,
-#            'option': option,
-#            'spot_list': spot_list,
-#        })
-#        return HttpResponse(template.render(context))
 
 
 def get_selected_value(request):
