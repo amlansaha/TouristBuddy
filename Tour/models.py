@@ -10,7 +10,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Adjacent(models.Model):
 	source = models.ForeignKey('Locations', related_name='%(app_label)s_%(class)s_source')
@@ -120,12 +120,13 @@ class Locations(models.Model):
 
 class Users(models.Model):
 	user_id = models.CharField(primary_key=True, max_length=20)
-	user_email = models.CharField(max_length=50)
+	user_email = models.CharField(max_length=50, error_messages={'duplicate':'This email has already been used.'})
 	user_name = models.CharField(max_length=50)
 	user_password = models.CharField(max_length=30)
 
 	class Meta:
 		managed = True
+		unique_together = (("user_email"),)
 		db_table = 'users'
 		
 class Manage(models.Model):

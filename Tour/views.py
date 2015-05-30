@@ -3,12 +3,17 @@ from django.template import RequestContext, loader
 from .models import * #from .models import Locations, Districts, Hotels, Adjacency, Guides, Images, images_guide, images_location, images_user, manage, restaurants, review, transports, travel, users
 from django.shortcuts import render_to_response
 from django.shortcuts import render
+from django.http import HttpResponsedRedirect
+from django.contrib import auth
+from django.core.context_processors import csrf
 from .forms import ChoiceForm, SignUpForm
 
 # Create your views here.
 selected_value = "Dhaka"
 selected_value1 = "Dhaka"
 flag=0
+
+def login(request):
 
 def retrieve(request, source, dest):
     template = loader.get_template('Tour/index6.html')
@@ -143,11 +148,27 @@ def get_selected_value(request):
 
 def user_register(request):
 	form = SignUpForm(request.POST or None)
-	print("USERREGISTRATION KLHASFIEOR")
+#	print("USERREGISTRATION KLHASFIEOR")
+	print("req_post:   ")
+	print(request.POST)
+	print("...")
+	print(form.as_p)
+	
+#	tempDict={'user_name':"amlan", 'user_email':'i@g.com', 'user_password':'1234'}
+#	tempForm = SignUpForm(tempDict)
+#	if tempForm.is_valid():	print("OIUWEOIRUWERWER VALID")
+#	else:	print("JKNCJMN INVALID")
+	registered = False
+	alert = ""
 	if form.is_valid():
 		save_it = form.save(commit=False)
 		save_it.save()
-		
+		registered = True
+		alert = "Registered successfully."
+#		return render(request, 'Tour/register.html', {'alert':alert, 'registered':registered})
+#		form.clear()
+	else:
+		print ("INVALID FORM")
 	return render_to_response("Tour/register.html", 
 							locals(), 
 							context_instance=RequestContext(request))

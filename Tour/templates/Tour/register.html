@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<script type="text/javascript">
+ $(function(){
+   {% if alert %}
+      //whatever conditions and js code
+      alert('{{alert}}');
+   {% endif %}
+ });
+</script>
 	<html>
 		<head>
 		
@@ -7,7 +15,9 @@
 		<body>
 			<h1>Register</h1>
 			<form method='POST' action=''> {% csrf_token %}
-				{{form.as_p}}		<!--> p means paragraph<!-->
+				
+				{{form.as_p}}
+				<!-- p means paragraph><!-->
 				<input type='submit'>
 			</form>
 		</body>
