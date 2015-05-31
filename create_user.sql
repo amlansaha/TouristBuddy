@@ -1,10 +1,10 @@
 --drop user tourism cascade;
 CREATE user tourism identified by tourism;
 
-GRANT CONNECT TO Tourism;
+GRANT CONNECT TO tourism;
 
-GRANT EXECUTE on schema.procedure TO Tourism;
+GRANT EXECUTE on schema.procedure TO tourism;
 
-GRANT CONNECT,RESOURCE,DBA TO Tourism;
-GRANT CREATE SESSION GRANT ANY PRIVILEGE TO Tourism;
-GRANT UNLIMITED TABLESPACE TO Tourism;
+GRANT CONNECT,RESOURCE,DBA TO tourism;
+GRANT CREATE SESSION GRANT ANY PRIVILEGE TO tourism;
+GRANT UNLIMITED TABLESPACE TO tourism;

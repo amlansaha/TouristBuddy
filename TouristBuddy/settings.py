@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+#from django.contrib.auth.models import User, check_password
+#from .models import Users
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,7 +28,6 @@ SECRET_KEY = '!&i)pq*p7*ij6n*3lsk@+fhr4aso(i0jy$5_yh#nxwnp1wpung'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -105,3 +106,37 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+AUTH_USER_MODEL = 'Tour.Users'
+
+#class SettingsBackend(object):
+#    """
+#    Authenticate against the settings ADMIN_LOGIN and ADMIN_PASSWORD.
+
+#    Use the login name, and a hash of the password. For example:
+
+#    ADMIN_LOGIN = 'admin'
+#    ADMIN_PASSWORD = 'sha1$4e987$afbcf42e21bd417fb71db8c66b321e9fc33051de'
+#    """
+
+#    def authenticate(self, user_email=None, password=None):
+#        login_valid = (settings.ADMIN_LOGIN == user_email)
+#        pwd_valid = check_password(password, settings.ADMIN_PASSWORD)
+#        if login_valid and pwd_valid:
+#            try:
+#                user = User.objects.get(username=username)
+#            except User.DoesNotExist:
+#                # Create a new user. Note that we can set password
+#                # to anything, because it won't be checked; the password
+#                # from settings.py will.
+#                user = User(username=username, password='get from settings.py')
+#                user.is_staff = True
+#                user.is_superuser = True
+#                user.save()
+#            return user
+#        return None
+
+#    def get_user(self, user_id):
+#        try:
+#            return User.objects.get(pk=user_id)
+#        except User.DoesNotExist:
+#            return None

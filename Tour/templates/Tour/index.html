@@ -59,8 +59,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<span class="menu"></span> 
 				<ul class="cl-effect-1">
 					 <li><a class="scroll" href="#home">HOME</a></li>
-					 <li><a class="scroll" href="#contact">LOGIN</a></li>
-					 <li><a class="scroll" href="register">REGISTRATION</a></li>
+					{% if user.is_authenticated %}
+					<li><a class="scroll" href="profile">
+						{{ user.user_first_name }}
+					</a></li>
+					<li><a class="" href="logout">
+						{{"LOGOUT"}}
+					 </a></li>
+					{% else %}
+					 <li><a class="" href="login">
+						{{"LOGIN"}}
+					 </a></li>
+					 <li><a class="" href="register">REGISTRATION</a></li>
+					{% endif %}
 				 </ul>
 			 </div>
 			 <div class="clearfix"></div>
@@ -159,7 +170,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			
 			
 	</div>
-
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.user_first_name }}. Thanks for logging in.</p>
+{% else %}
+    <p>Welcome, new user. Please log in.</p>
+{% endif %}
 
 
  </body>

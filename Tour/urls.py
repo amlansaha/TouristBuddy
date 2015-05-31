@@ -9,11 +9,11 @@ urlpatterns = [
     url(r'^register$', views.user_register, name='user_register'),
     
     #user auth urls
-    url(r'^login/$', 'django_test.views.login'),
-    url(r'^auth/$', 'django_test.views.auth_view'),
-    url(r'^logout/$', 'django_test.views.logout'),
-    url(r'^loggedin/$', 'django_test.views.loggedin'),
-    url(r'^invalid/$', 'django_test.views.invalid_login'),
+    url(r'^login$', views.user_login),
+    url(r'^login/(?P<email>[^\_]+)[_](?P<pw>[^\_]+)$', views.user_login),
+    url(r'^logout/$', views.user_logout),
+    url(r'^loggedin/$', views.user_loggedin),
+#    url(r'^invalid/$', views.user.invalid),
 ]
 
 

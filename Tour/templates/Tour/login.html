@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+		
+		</head>
+		
+		<body>
+			<h1>Login</h1>
+			{% if form.errors %}
+				<p class="error">Invalid username or password.></p>
+			{% endif %}
+			<form action="login" method='POST' action=''> {% csrf_token %}
+				
+<p><label for="id_user_email">email:</label> <input id="id_user_email" maxlength="255" name="user_email" type="email" /></p>
+<p><label for="id_password">Password:</label> <input id="id_password" name="password" type="password" /></p>
+				<!-- p means paragraph><!-->
+				<input type='submit'>
+			</form>
+		</body>
+	</html>
+

@@ -11,8 +11,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterUniqueTogether(
-            name='users',
-            unique_together=set([('user_email',)]),
+        migrations.AddField(
+            model_name='users',
+            name='is_admin',
+            field=models.BooleanField(default=0),
+            preserve_default=False,
         ),
     ]

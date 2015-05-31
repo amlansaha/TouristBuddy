@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
@@ -13,8 +14,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Adjacent',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('distance_in_km', models.FloatField(null=True, blank=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('distance_in_km', models.FloatField(blank=True, null=True)),
             ],
             options={
                 'db_table': 'adjacent',
@@ -121,7 +122,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Manage',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
                 ('charge', models.FloatField()),
                 ('guide', models.ForeignKey(to='Tour.Guides')),
                 ('location', models.ForeignKey(to='Tour.Locations')),
@@ -149,9 +150,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Review',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
                 ('review', models.CharField(max_length=300, blank=True)),
-                ('rating', models.FloatField(null=True, blank=True)),
+                ('rating', models.FloatField(blank=True, null=True)),
                 ('location', models.ForeignKey(to='Tour.Locations')),
             ],
             options={
@@ -188,7 +189,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Travel',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
                 ('fare', models.IntegerField(null=True)),
                 ('destination_id1', models.ForeignKey(related_name='destination1', to='Tour.Locations')),
                 ('source_id1', models.ForeignKey(related_name='source1', to='Tour.Locations')),
@@ -201,10 +202,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Users',
             fields=[
-                ('user_id', models.CharField(max_length=20, serialize=False, primary_key=True)),
-                ('user_email', models.CharField(max_length=50)),
-                ('user_name', models.CharField(max_length=50)),
-                ('user_password', models.CharField(max_length=30)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('password', models.CharField(max_length=128, verbose_name='password')),
+                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
+                ('user_first_name', models.CharField(max_length=50)),
+                ('user_last_name', models.CharField(max_length=50)),
+                ('user_email', models.EmailField(max_length=255, verbose_name='email address', unique=True)),
+                ('date_joined', models.DateField()),
+                ('is_active', models.BooleanField()),
             ],
             options={
                 'db_table': 'users',
@@ -214,12 +219,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='review',
             name='user',
-            field=models.ForeignKey(to='Tour.Users'),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
             model_name='imagesuser',
             name='user',
-            field=models.ForeignKey(to='Tour.Users'),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
             model_name='imageslocation',

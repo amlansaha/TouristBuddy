@@ -10,7 +10,9 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import (
+    BaseUserManager, AbstractBaseUser
+)
 
 class Adjacent(models.Model):
 	source = models.ForeignKey('Locations', related_name='%(app_label)s_%(class)s_source')
@@ -118,15 +120,90 @@ class Locations(models.Model):
 		managed = True
 		db_table = 'locations'
 
-class Users(models.Model):
-	user_id = models.CharField(primary_key=True, max_length=20)
-	user_email = models.CharField(max_length=50, error_messages={'duplicate':'This email has already been used.'})
-	user_name = models.CharField(max_length=50)
-	user_password = models.CharField(max_length=30)
+class MyUserManager(BaseUserManager):
+    def create_user(self, user_email, password=None, user_first_name=None, user_last_name=None):
+        """
+        Creates and saves a User with the given email, date of
+        birth and password.
+        """
+        if not user_email:
+            raise ValueError('Users must have an email address')
 
+        user = self.model(
+            email=self.normalize_email(user_email),
+            user_first_name = user_first_name,
+            user_last_name = user_last_name,
+#            date_of_birth=date_of_birth,
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password, user_first_name, user_last_name):
+        """
+        Creates and saves a superuser with the given email, date of
+        birth and password.
+        """
+        user = self.create_user(email,
+            password=password,
+            user_first_name=user_first_name,
+            user_last_name=user_last_name,
+        )
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
+        
+class Users(AbstractBaseUser):
+#	user_id = models.CharField(primary_key=True, max_length=20)
+#	user_email = models.CharField(max_length=50, error_messages={'duplicate':'This email has already been used.'})
+#	user_password = models.CharField(max_length=30)
+	user_first_name = models.CharField(max_length=50)
+	user_last_name = models.CharField(max_length=50)
+	
+	user_email = models.EmailField(
+			verbose_name='email address',
+			max_length=255,
+			unique=True,
+		)
+	date_joined = models.DateField()
+	is_active = models.BooleanField()
+	is_admin = models.BooleanField()
+	
+	objects = MyUserManager()
+	
+	USERNAME_FIELD = 'user_email'
+	REQUIRED_FIELDS = ['user_name']
+	
+	def get_full_name(self):
+		# The user is identified by their email address
+		return self.user_first_name + self.user_last_name
+
+	def get_short_name(self):
+		# The user is identified by their email address
+		return self.user_email
+
+	def __str__(self):			  # __unicode__ on Python 2
+		return self.user_email
+
+	def has_perm(self, perm, obj=None):
+		"Does the user have a specific permission?"
+		# Simplest possible answer: Yes, always
+		return True
+
+	def has_module_perms(self, app_label):
+		"Does the user have permissions to view the app `app_label`?"
+		# Simplest possible answer: Yes, always
+		return True
+
+	@property
+	def is_staff(self):
+		"Is the user a member of staff?"
+		# Simplest possible answer: All admins are staff
+		return self.is_admin
+		
 	class Meta:
 		managed = True
-		unique_together = (("user_email"),)
 		db_table = 'users'
 		
 class Manage(models.Model):
