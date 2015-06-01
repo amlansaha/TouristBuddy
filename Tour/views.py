@@ -161,7 +161,7 @@ def get_selected_value(request):
 			location_list= Locations.objects.raw('SELECT * FROM LOCATIONS WHERE DIST_ID= %s',[district.dist_id])
 		return render(request, 'Tour/index4.html', {'selected_value': selected_value, 'location_list': location_list,'selected_value1': selected_value1,'selected_value2': selected_value2})
 
-	else: 
+	else:
 		return render(request, 'Tour/index.html', {'selected_value': selected_value, 'district_list': district_list,'selected_value1': selected_value1})
 
 def user_register(request):
@@ -210,3 +210,61 @@ def user_login(request):
 			print("The username and password were incorrect")
 			# Return an 'invalid login' error message.
 	return render(request, 'Tour/login.html')
+
+from django.db import connection
+import queue
+
+        
+def dijkstra(src='21',dst='19'):
+	cursor = connection.cursor()
+	getAdj = lambda node: cursor.execute("select distance_in_km, source_id, dest_id from adjacent where source_id=%s or dest_id=%s",[node,node]).fetchall()
+	
+	pq = queue.PriorityQueue()
+	
+	parent = {src:None}
+	dist = {src:0}
+	visited = {}
+	pq.put((0,src))			#(cost,node) tuple in pq
+	
+	while not pq.empty():
+		crnt = pq.get()
+		if ( crnt[1] in visited and visited[crnt[1]] == True ):	#node already visited
+			continue
+		if ( crnt[1] == dst ):
+			dist[crnt[1]] = crnt[0]
+			visited[crnt[1]] = True
+			break
+			
+		visited[crnt[1]] = True
+		dist[crnt[1]] = crnt[0]
+		rows = getAdj(crnt[1])
+		
+		for row in rows:
+			c = int(row[0])	#distance
+			s = row[1]	#source
+			d = row[2]	#destination
+			if(s != crnt[1]):
+				s,d = d,s
+			if ( d not in visited or visited[d] == False):
+				pq.put((c, d))
+				if ( d not in dist ):
+					dist[d] = crnt[0]
+					parent[d] = crnt[1]
+				elif ( dist[d] > crnt[0]+c ):
+					dist[d] = crnt[0]+c
+					parent[d] = crnt[1]
+				pq.put((crnt[0]+c,d))
+
+	if ( dst in visited and visited[dst] == True ):
+		ret = [dst]
+	else:	ret = []
+	crnt = dst
+	
+	while(True):
+		if ( parent[crnt] == None ):
+			break
+		ret.insert(0,parent[crnt])
+		crnt = parent[crnt]
+		
+	print(ret)
+	return ret
