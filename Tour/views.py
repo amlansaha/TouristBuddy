@@ -125,7 +125,8 @@ def retrieve_details(request, source, dest, option):
 			
 			selected_value3 = request.POST.get('sample3')
 			location_list= Locations.objects.raw("SELECT * FROM LOCATIONS WHERE LOCATION_ID IN(SELECT DEST_ID FROM ADJACENT WHERE (SOURCE_ID=%s AND DISTANCE_IN_KM<%s) UNION ( SELECT SOURCE_ID FROM ADJACENT WHERE (DEST_ID= %s AND DISTANCE_IN_KM<%s)))",[dest,selected_value3,dest,selected_value3])
-			return render(request, 'Tour/index5.html', {'selected_value3': selected_value3, 'location_list': location_list})
+			dest_name = Locations.objects.raw('Select * from LOCATIONS where location_id=%s',[dest])
+			return render(request, 'Tour/index5.html', {'selected_value3': selected_value3, 'location_list': location_list, 'source': source, 'dest_name': dest_name})
 		else:
 			return render(request, 'Tour/index7.html', {'selected_value3': selected_value3})
  

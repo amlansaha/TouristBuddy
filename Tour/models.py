@@ -39,7 +39,7 @@ class Guides(models.Model):
 	guide_name = models.CharField(max_length=80)
 	location = models.ForeignKey('Locations')
 	contact_no = models.CharField(max_length=20)
-	guide_email = models.CharField(max_length=50, blank=True, null=True)
+	guide_email = models.CharField(max_length=255, blank=True, null=True)
 	image = models.ForeignKey('Images')
 
 	class Meta:
@@ -54,7 +54,7 @@ class Hotels(models.Model):
 	hotel_name = models.CharField(max_length=50)
 	hotel_website = models.CharField(max_length=50, blank=True, null=True)
 	hotel_phone = models.CharField(max_length=20, blank=True, null=True)
-	hotel_email = models.CharField(max_length=20, blank=True, null=True)
+	hotel_email = models.CharField(max_length=255, blank=True, null=True)
 
 	class Meta:
 		managed = True
@@ -63,10 +63,11 @@ class Hotels(models.Model):
 class Restaurants(models.Model):
 	restaurant_id = models.CharField(primary_key=True, max_length=20)
 	location = models.ForeignKey('Locations')
+	restaurant_cost= models.IntegerField(null=True)
 	restaurant_name = models.CharField(max_length=50)
 	restaurant_website = models.CharField(max_length=50, blank=True, null=True)
 	restaurant_phone = models.CharField(max_length=20, blank=True, null=True)
-	restaurant_email = models.CharField(max_length=20, blank=True, null=True)
+	restaurant_email = models.CharField(max_length=255, blank=True, null=True)
 
 	class Meta:
 		managed = True
@@ -157,7 +158,7 @@ class MyUserManager(BaseUserManager):
         
 class Users(AbstractBaseUser):
 #	user_id = models.CharField(primary_key=True, max_length=20)
-#	user_email = models.CharField(max_length=50, error_messages={'duplicate':'This email has already been used.'})
+#	user_email = models.CharField(max_length=255, error_messages={'duplicate':'This email has already been used.'})
 #	user_password = models.CharField(max_length=30)
 	user_first_name = models.CharField(max_length=50)
 	user_last_name = models.CharField(max_length=50)
@@ -243,10 +244,9 @@ class Transports(models.Model):
 	transport_id = models.CharField(max_length=100, null=False, primary_key=True)
 	transport_type = models.CharField(max_length=3, null=False)
 	
-	contact_info = models.CharField(max_length=200, null=True)
-	contact_web = models.CharField(max_length=40, null=True)
+	transport_name = models.CharField(max_length=200, null=False)
 	contact_phone = models.CharField(max_length=20, null=True)
-	contact_email = models.CharField(max_length=50, null=True)
+	contact_email = models.CharField(max_length=255, null=True)
 	
 	class Meta:
 		db_table = 'transports'

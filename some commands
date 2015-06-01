@@ -1,2 +1,4 @@
+sudo service oracle-xe start
+
 django_admin startproject PracticeProject
 python manage.py inspectdb > models.py	//to create models code from existing db
