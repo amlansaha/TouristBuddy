@@ -48,7 +48,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	<div class="banner-bg">
 		<video autoplay="autoplay" muted="muted" poster="wall_icons/my.jpg" width="100%"  loop>
-			<source src="{% static 'assets/3.mp4' %}" type="video/mp4" type="video/mp4">
+			<source src="{% static 'assets/Start_video.mp4' %}" type="video/mp4" type="video/mp4">
 		</video>
 		<div class="banner">
 		 <div class="header">	 
@@ -58,9 +58,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			 <div class="top-menu">
 				<span class="menu"></span> 
 				<ul class="cl-effect-1">
-					 <li><a class="scroll" href="#home">HOME</a></li>
-					 <li><a class="scroll" href="#contact">LOGIN</a></li>
-					 <li><a class="scroll" href="#contact">REGISTRATION</a></li>
+					<li><a href="/tb">HOME</a></li>
+					{% if user.is_authenticated %}
+					<li><a class="" href="/tb/profile">
+						{{ user.user_first_name }}
+					</a></li>
+					<li><a class="" href="/tb/logout">
+						{{"LOGOUT"}}
+					 </a></li>
+					{% else %}
+					 <li><a class="" href="/tb/login">
+						{{"LOGIN"}}
+					 </a></li>
+					 <li><a class="" href="/tb/register">REGISTRATION</a></li>
+					{% endif %}
 				 </ul>
 			 </div>
 			 <div class="clearfix"></div>
@@ -75,7 +86,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		 <!-- script-for-menu -->			 
 		 </div>
 		 <div class="banner-text wow fadeInUp" data-wow-delay="0.5s">
-		 	  <h1>Visit <span>{{dest}}</span></h1>
+		 	  {% for location in dest_name %}
+		 	  <h1>Visit <span>{{location.location_name}}</span></h1>
+			  {% endfor %}
 		 </div>
 		 
 		 <div class="booking-form">

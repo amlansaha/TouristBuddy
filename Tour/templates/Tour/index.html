@@ -48,17 +48,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	<div class="banner-bg">
 		<video autoplay="autoplay" muted="muted" poster="wall_icons/my.jpg" width="100%"  loop>
-			<source src="{% static 'assets/3.mp4' %}" type="video/mp4" type="video/mp4">
+			<source src="{% static 'assets/Start_video.mp4' %}" type="video/mp4" type="video/mp4">
 		</video>
 		<div class="banner">
 		 <div class="header">	 
 			 <div class="logo wow fadeInLeft" data-wow-delay="0.5s">
 			 <a href=""><img src="{% static 'assets/images/TouristBuddy_logo.png' %}" alt=""/></a>
-			 </div>	
+			 </div>
 			 <div class="top-menu">
 				<span class="menu"></span> 
 				<ul class="cl-effect-1">
-					 <li><a class="scroll" href="#home">HOME</a></li>
+					<li><a href="/tb">HOME</a></li>
 					{% if user.is_authenticated %}
 					<li><a class="scroll" href="profile">
 						{{ user.user_first_name }}

@@ -50,6 +50,7 @@ class Guides(models.Model):
 class Hotels(models.Model):
 	hotel_id = models.CharField(primary_key=True, max_length=20)
 	location = models.ForeignKey('Locations')
+	hotel_cost= models.IntegerField(null=True)
 	hotel_name = models.CharField(max_length=50)
 	hotel_website = models.CharField(max_length=50, blank=True, null=True)
 	hotel_phone = models.CharField(max_length=20, blank=True, null=True)
@@ -168,7 +169,7 @@ class Users(AbstractBaseUser):
 		)
 	date_joined = models.DateField()
 	is_active = models.BooleanField()
-	is_admin = models.BooleanField()
+	is_admin = models.BooleanField(default=False)
 	
 	objects = MyUserManager()
 	

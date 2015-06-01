@@ -12,6 +12,8 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 selected_value = "Dhaka"
 selected_value1 = "Dhaka"
+selected_value2 = "Dhaka"
+selected_value3 = 0
 flag=0
 
 def retrieve(request, source, dest):
@@ -80,10 +82,12 @@ def retrieve_details(request, source, dest, option):
 		
 	elif option== "gallery":
 		image_list = Images.objects.raw('SELECT * FROM IMAGES M1 JOIN IMAGES_LOCATION M2 ON (M1.IMAGE_ID=M2.IMAGE_ID) WHERE M2.LOCATION_ID=%s',[dest])
+		dest_name = Locations.objects.raw('Select * from LOCATIONS where location_id=%s',[dest])
 		template = loader.get_template('Tour/index_gallery.html')
 		context = RequestContext(request, {
 			'source': source,
 			'dest': dest,
+			'dest_name': dest_name,
 			'option': option,
 			'image_list': image_list,
 		})
@@ -103,14 +107,28 @@ def retrieve_details(request, source, dest, option):
 	
 	elif option == "spot":
 		spot_list = Spots.objects.raw('Select * from SPOTS where location_id=%s',[dest])
+		dest_name = Locations.objects.raw('Select * from LOCATIONS where location_id=%s',[dest])
 		template = loader.get_template('Tour/index_spot.html')
 		context = RequestContext(request, {
 			'source': source,
 			'dest': dest,
+				'dest_name': dest_name,
 			'option': option,
 			'spot_list': spot_list,
 		})
 		return HttpResponse(template.render(context))
+	elif option == "nearby":
+		global selected_value3,flag
+		flag=0
+		if "sample3" in request.POST:
+			flag=1
+			
+			selected_value3 = request.POST.get('sample3')
+			location_list= Locations.objects.raw("SELECT * FROM LOCATIONS WHERE LOCATION_ID IN(SELECT DEST_ID FROM ADJACENT WHERE (SOURCE_ID=%s AND DISTANCE_IN_KM<%s) UNION ( SELECT SOURCE_ID FROM ADJACENT WHERE (DEST_ID= %s AND DISTANCE_IN_KM<%s)))",[dest,selected_value3,dest,selected_value3])
+			return render(request, 'Tour/index5.html', {'selected_value3': selected_value3, 'location_list': location_list})
+		else:
+			return render(request, 'Tour/index7.html', {'selected_value3': selected_value3})
+ 
 
 
 def get_selected_value(request):

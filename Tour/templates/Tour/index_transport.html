@@ -48,7 +48,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	<div class="banner-bg">
 		<video autoplay="autoplay" muted="muted" poster="wall_icons/my.jpg" width="100%"  loop>
-			<source src="{% static 'assets/3.mp4' %}" type="video/mp4" type="video/mp4">
+			<source src="{% static 'assets/Start_video.mp4' %}" type="video/mp4" type="video/mp4">
 		</video>
 		<div class="banner">
 		 <div class="header">	 
@@ -58,9 +58,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			 <div class="top-menu">
 				<span class="menu"></span> 
 				<ul class="cl-effect-1">
-					 <li><a class="scroll" href="#home">HOME</a></li>
-					 <li><a class="scroll" href="#contact">LOGIN</a></li>
-					 <li><a class="scroll" href="#contact">REGISTRATION</a></li>
+					<li><a href="/tb">HOME</a></li>
+					{% if user.is_authenticated %}
+					<li><a class="" href="/tb/profile">
+						{{ user.user_first_name }}
+					</a></li>
+					<li><a class="" href="/tb/logout">
+						{{"LOGOUT"}}
+					 </a></li>
+					{% else %}
+					 <li><a class="" href="/tb/login">
+						{{"LOGIN"}}
+					 </a></li>
+					 <li><a class="" href="/tb/register">REGISTRATION</a></li>
+					{% endif %}
 				 </ul>
 			 </div>
 			 <div class="clearfix"></div>
@@ -112,16 +123,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 													   		  <tr>
 															  	  <strong><td width="400">Transports</td></strong>
 																  <strong><td width="400">Type</td></strong>
-																  <strong><td width="400">Contact</td></strong>
+																  <strong><td width="400">Phone</td></strong>
+																  <strong><td width="400">Email</td></strong>
 															  </tr>
 													   </thead>
 													   
 													   	{% for transport in transport_list %}
 															  <tbody>
 															  	 <tr>
-																 	 <td width="400">{{transport.transport_id}}</td>
+																 	 <td width="400">{{transport.transport_name}}</td>
 																	 <td width="400">{{transport.transport_type}}</td>
-																	 <td width="400">{{transport.contact_info}}</td>
+																	 <td width="400">{{transport.contact_phone}}</td>
+																	 <td width="400">{{transport.contact_email}}</td>
 																	 
 						 										 </tr>
 					  										  </tbody>
