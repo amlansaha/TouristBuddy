@@ -9,7 +9,10 @@ from django.core.context_processors import csrf
 from .forms import ChoiceForm, RegisterForm
 from django.contrib.auth import authenticate, login, logout
 from django.db import connection
-import queue
+try:
+    import queue  # ver. > 3.0
+except ImportError:
+    import Queue
 
 # Create your views here.
 selected_value = "Dhaka"
@@ -69,7 +72,7 @@ def retrieve_details(request, source, dest, option):
 			name = cursor.execute('SELECT LOCATION_NAME FROM LOCATIONS WHERE LOCATION_ID=%s',[lid]).fetchone()
 			loc_names.append(name[0])
 		print(loc_names)
-		transport_list = Travel.objects.raw('SELECT * FROM TRANSPORTS T1 JOIN (SELECT * FROM TRAVEL WHERE (DESTINATION_ID1_ID= %s) AND (SOURCE_ID1_ID= %s)) T2 ON (T1.TRANSPORT_ID=T2.TRANSPORT_ID)',[dest,source])
+		transport_list = Travel.objects.raw('SELECT * FROM TRANSPORTS T1 JOIN (SELECT * FROM TRAVEL WHERE ((DESTINATION_ID1_ID= %s) AND (SOURCE_ID1_ID= %s)) OR (DESTINATION_ID1_ID= %s) AND (SOURCE_ID1_ID= %s)) T2 ON (T1.TRANSPORT_ID=T2.TRANSPORT_ID)',[dest,source,source,dest])
 		template = loader.get_template('Tour/index_transport.html')
 		context = RequestContext(request, {
 			'source': source,
@@ -127,6 +130,7 @@ def retrieve_details(request, source, dest, option):
 			'spot_list': spot_list,
 		})
 		return HttpResponse(template.render(context))
+		
 	elif option == "nearby":
 		global selected_value3,flag
 		flag=0
@@ -139,7 +143,36 @@ def retrieve_details(request, source, dest, option):
 			return render(request, 'Tour/index5.html', {'selected_value3': selected_value3, 'location_list': location_list, 'source': source, 'dest_name': dest_name})
 		else:
 			return render(request, 'Tour/index7.html', {'selected_value3': selected_value3})
- 
+			
+	elif option== "route":
+		loc_ids=dijkstra(source,dest)
+		loc_names=[]
+		cursor=connection.cursor()
+		for lid in loc_ids:
+			name = cursor.execute('SELECT LOCATION_NAME FROM LOCATIONS WHERE LOCATION_ID=%s',[lid]).fetchone()
+			loc_names.append(name[0])
+#		print(loc_names)
+		l = len(loc_names)
+		
+		loc_couples=[]
+#		loc_name_couples=[]
+		
+		for i in range(0,l-1):
+			loc_couples.append( ((loc_ids[i]+'_'+loc_ids[i+1]), (loc_names[i]+' → '+loc_names[i+1])) )
+		
+		transport_list=Travel.objects.raw('SELECT * FROM TRANSPORTS T1 JOIN (SELECT * FROM TRAVEL WHERE (DESTINATION_ID1_ID= %s) AND (SOURCE_ID1_ID= %s)) T2 ON (T1.TRANSPORT_ID=T2.TRANSPORT_ID)',[dest,source])
+		template=loader.get_template('Tour/index_route.html')
+		context=RequestContext(request, {
+			'source': source,
+			'dest': dest,
+			'option': option,
+			'transport_list': transport_list,
+			'loc_names': loc_names,
+			'source_name': Locations.objects.get(location_id=source).location_name,
+			'dest_name': Locations.objects.get(location_id=dest).location_name,
+			'loc_couples': loc_couples,
+			})
+		return HttpResponse(template.render(context))
 
 
 def get_selected_value(request):

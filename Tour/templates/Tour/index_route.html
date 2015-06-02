@@ -75,7 +75,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		 <!-- script-for-menu -->			 
 		 </div>
 		 <div class="banner-text wow fadeInUp" data-wow-delay="0.5s">
-		 	  <h1>Visit <span>{{dest_name}}</span></h1>
+		 	  <h1><span>Route</span> From {{source_name}} to {{dest_name}}</h1>
 		 </div>
 		 
 		 <div class="booking-form">
@@ -106,30 +106,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<div class="reservation">
 									 
 										<ul>	
+											{% for ids,names in loc_couples %} 
 											<li class="span1_of_1">
-												 <a href="{{source}}_{{dest}}_spot"><span><em><h5>Spots</h5></em></span></a>
-											</li>
-											<li class="span1_of_1">
-												 <a href="{{source}}_{{dest}}_hotel"><span><em><h5>Hotel</h5></em></span></a>
-											</li> 
-											<li class="span1_of_1">
-												 <a href="{{source}}_{{dest}}_restaurant"><span><em><h5>Restaurant</h5></em></span></a>
-											</li>
-											<li class="span1_of_1">
-												 <a href="{{source}}_{{dest}}_transport"><span><em><h5>Transport</h5></em></span></a>
-											</li> 
-											<li class="span1_of_1">
-												 <a href="{{source}}_{{dest}}_route"><span><em><h5>Route</h5></em></span></a>
-											</li>
-											<li class="span1_of_1">
-												 <a href="{{source}}_{{dest}}_guide"><span><em><h5>Guide</h5></em></span></a>
-											</li> 
-											<li class="span1_of_1">
-												 <a href="{{source}}_{{dest}}_gallery"><span><em><h5>Gallery</h5></em></span></a>
-											</li>  
-											<li class="span1_of_1">
-												 <a href="{{source}}_{{dest}}_nearby"><span><em><h5>Visit Also</h5></em></span></a>
-											</li>
+												<a href="/tb/{{ ids }}/{{ ids }}_transport">{{ names }}</a>
+											{% endfor %}	 
+											 
+											 
+											 
+											 
 											 <div class="clearfix"></div>
 										</ul>
 										
