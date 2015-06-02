@@ -8,6 +8,8 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 from .forms import ChoiceForm, RegisterForm
 from django.contrib.auth import authenticate, login, logout
+from django.db import connection
+import queue
 
 # Create your views here.
 selected_value = "Dhaka"
@@ -59,6 +61,14 @@ def retrieve_details(request, source, dest, option):
 		return HttpResponse(template.render(context))
 		
 	elif option== "transport":
+		loc_ids = dijkstra(source,dest)
+		loc_names = []
+		cursor = connection.cursor()
+		
+		for lid in loc_ids:
+			name = cursor.execute('SELECT LOCATION_NAME FROM LOCATIONS WHERE LOCATION_ID=%s',[lid]).fetchone()
+			loc_names.append(name[0])
+		print(loc_names)
 		transport_list = Travel.objects.raw('SELECT * FROM TRANSPORTS T1 JOIN (SELECT * FROM TRAVEL WHERE (DESTINATION_ID1_ID= %s) AND (SOURCE_ID1_ID= %s)) T2 ON (T1.TRANSPORT_ID=T2.TRANSPORT_ID)',[dest,source])
 		template = loader.get_template('Tour/index_transport.html')
 		context = RequestContext(request, {
@@ -191,6 +201,7 @@ def user_loggedin(request):
 	return HttpResponseRedirect('/tb')
 	
 def user_login(request):
+	dijkstra()
 	if (request.method=='POST' ):
 		user_email = request.POST['user_email']
 		password = request.POST['password']
@@ -211,20 +222,19 @@ def user_login(request):
 			# Return an 'invalid login' error message.
 	return render(request, 'Tour/login.html')
 
-from django.db import connection
-import queue
 
         
-def dijkstra(src='21',dst='19'):
+def dijkstra(src='12',dst='18'):
 	cursor = connection.cursor()
-	getAdj = lambda node: cursor.execute("select distance_in_km, source_id, dest_id from adjacent where source_id=%s or dest_id=%s",[node,node]).fetchall()
-	
+#	getAdj = lambda node: cursor.execute("select distance_in_km, source_id, dest_id from adjacent where source_id=%s or dest_id=%s",[node,node]).fetchall()
+	getAdj = lambda node: cursor.execute ('''select DISTINCT a.distance_in_km, a.source_id, a.dest_id from adjacent a join TRAVEL t ON ((t.SOURCE_ID1_ID=a.SOURCE_ID and t.DESTINATION_ID1_ID=a.DEST_ID) or (t.SOURCE_ID1_ID=a.DEST_ID and t.DESTINATION_ID1_ID=a.SOURCE_ID)) where a.source_id=%s or a.dest_id=%s''',[node,node]).fetchall()
+		
 	pq = queue.PriorityQueue()
 	
 	parent = {src:None}
 	dist = {src:0}
 	visited = {}
-	pq.put((0,src))			#(cost,node) tuple in pq
+	pq.put((0,src))			#(total_distance,node) tuple in pq
 	
 	while not pq.empty():
 		crnt = pq.get()
@@ -259,12 +269,20 @@ def dijkstra(src='21',dst='19'):
 		ret = [dst]
 	else:	ret = []
 	crnt = dst
+#	sqlcmd = '''select DISTINCT a.distance_in_km, a.source_id, a.dest_id from adjacent a join TRAVEL t ON ((t.SOURCE_ID1_ID=a.SOURCE_ID and t.DESTINATION_ID1_ID=a.DEST_ID) or (t.SOURCE_ID1_ID=a.DEST_ID and t.DESTINATION_ID1_ID=a.SOURCE_ID)) where a.source_id=%s or a.dest_id=%s;'''
+#	rows = cursor.execute(sqlcmd,[12,18]).fetchall()
+#	
+#	for row in rows:
+#		print(row)
+	
 	
 	while(True):
-		if ( parent[crnt] == None ):
-			break
-		ret.insert(0,parent[crnt])
-		crnt = parent[crnt]
-		
-	print(ret)
+		if ( crnt in parent ):
+			if (parent[crnt] == None ):
+				break
+			else:
+				ret.insert(0,parent[crnt])
+				crnt = parent[crnt]
+		else:	break
+	print('ppp',ret)
 	return ret
