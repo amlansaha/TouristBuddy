@@ -147,7 +147,7 @@ class MyUserManager(BaseUserManager):
         Creates and saves a superuser with the given email, date of
         birth and password.
         """
-        user = self.create_user(email,
+        user = self.create_user(user_email=email,
             password=password,
             user_first_name=user_first_name,
             user_last_name=user_last_name,
@@ -175,7 +175,7 @@ class Users(AbstractBaseUser):
 	objects = MyUserManager()
 	
 	USERNAME_FIELD = 'user_email'
-	REQUIRED_FIELDS = ['user_name']
+	REQUIRED_FIELDS = ['user_first_name','user_last_name']
 	
 	def get_full_name(self):
 		# The user is identified by their email address

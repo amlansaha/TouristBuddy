@@ -78,12 +78,12 @@ WSGI_APPLICATION = 'TouristBuddy.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'xe',
-        'USER': 'tourism',
-        'PASSWORD': 'tourism',
-        'HOST':'',
-        'PORT':'',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'TouristBuddy',
+        'USER': 'root',
+        'PASSWORD': 'root',
+#        'HOST':'',
+#        'PORT':'',
     }
 }
 
